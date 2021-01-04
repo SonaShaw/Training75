@@ -1,0 +1,201 @@
+﻿Create a table Worker with following columns
+Worker
+WORKER_ID INT,
+	FIRST_NAME CHAR(25),
+	LAST_NAME CHAR(25),
+	SALARY int,
+	JOINING_DATE DATETIME,
+	DEPARTMENT CHAR(25)
+
+where in WORKER_ID  is primary key,
+FIRST_NAME  should not allow nulls
+SALARY should be in range 10000 to 25000
+dept can be only HR Sales Accts and IT
+
+Keep Date format 2016-06-11 00:00:00 while entering Records
+
+
+
+
+
+
+
+
+Q-1. Write an SQL query to fetch “FIRST_NAME” from Worker table using the alias name as <WORKER_NAME>.
+
+ 
+Q-2. Write an SQL query to fetch “FIRST_NAME” from Worker table in upper case.
+
+ 
+Q-3. Write an SQL query to fetch unique values of DEPARTMENT from Worker table.
+
+ 
+Q-4. Write an SQL query to print the first three characters of  FIRST_NAME from Worker table.
+
+ 
+Q-5. Write an SQL query to find the position of the alphabet (‘a’) in the first name column ‘Amitabh’ from Worker table.
+
+ 
+Q-6. Write an SQL query to print the FIRST_NAME from Worker table after removing white spaces from the right side.
+
+ 
+Q-7. Write an SQL query to print the DEPARTMENT from Worker table after removing white spaces from the left side.
+
+ 
+Q-8. Write an SQL query that fetches the unique values of DEPARTMENT from Worker table and prints its length.
+
+ 
+Q-9. Write an SQL query to print the FIRST_NAME from Worker table after replacing ‘a’ with ‘A’.
+
+ 
+Q-10. Write an SQL query to print the FIRST_NAME and LAST_NAME from Worker table into a single column COMPLETE_NAME. A space char should separate them.
+
+ 
+Q-11. Write an SQL query to print all Worker details from the Worker table order by FIRST_NAME Ascending.
+
+ 
+Q-12. Write an SQL query to print all Worker details from the Worker table order by FIRST_NAME Ascending and DEPARTMENT Descending.
+
+ 
+Q-13. Write an SQL query to print details for Workers with the first name as “Vipul” and “Satish” from Worker table.
+
+ 
+Q-14. Write an SQL query to print details of workers excluding first names, “Vipul” and “Satish” from Worker table.
+
+ 
+Q-15. Write an SQL query to print details of Workers with DEPARTMENT name as “Admin”.
+
+ 
+Q-16. Write an SQL query to print details of the Workers whose FIRST_NAME contains ‘a’.
+
+Q-17. Write an SQL query to print details of the Workers whose FIRST_NAME ends with ‘a’.
+
+ 
+Q-18. Write an SQL query to print details of the Workers whose FIRST_NAME ends with ‘h’ and contains six alphabets.
+
+Q-19. Write an SQL query to print details of the Workers whose SALARY lies between 100000 and 500000.
+
+ 
+Q-20. Write an SQL query to print details of the Workers who have joined in Feb’2014.
+
+ 
+Q-21. Write an SQL query to fetch the count of employees working in the department ‘Admin’.
+
+ 
+
+
+
+
+
+
+
+
+create table Worker (
+WORKER_ID INT PRIMARY KEY,
+FIRST_NAME VARCHAR(25) NOT NULL,
+LAST_NAME VARCHAR(25),
+SALARY INT CHECK (SALARY BETWEEN 10000 AND 25000),
+JOINING_DATE DATETIME,
+DEPARTMENT VARCHAR(25) CHECK (DEPARTMENT IN ('Hr', 'Sales', 'Accts', 'IT'))
+)
+
+insert into worker values(1, 'Sona', 'Shaw', 20000, '2016-08-23 02:45:23', 'Hr')
+select * from Worker
+insert into worker values
+(2, 'Rahul', 'Shaw', 22000, '2016-07-29 02:20:23', 'IT'),
+(3, 'Sohag', 'Saha', 15000, '2018-07-29 02:20:23', 'IT'),
+(4, 'Arpan', 'Das', 13000, '2019-07-29 02:20:23', 'HR'),
+(5, 'Souvik', 'Patra', 24000, '2020-07-29 02:20:23', 'Sales'),
+(6, 'Sourjya', 'Mukherjee', 23000, '2015-07-29 02:20:23', 'Accts')
+
+
+-- query 1 --
+
+select FIRST_name as "Worker_Name" from Worker 
+
+--query 2 -- 
+
+select upper(first_name) from worker
+
+--query 3--
+
+select distinct department from Worker
+
+--query 4--
+
+select left(first_name, 3) from Worker
+
+--query 5----
+
+select charindex('a', first_name) from worker
+
+-- query 6 ----
+
+select RTRIM(first_name) from worker
+
+--quesry 7 ----
+
+select LTRIM(department) from Worker
+
+--query 8--
+
+select distinct department, len(department) as "length" from worker
+
+-- query 9--
+
+select replace(first_name,'a','A') from worker
+
+-- query 10-----
+
+select first_name + ' ' + last_name from Worker
+
+---query 11-----
+
+select * from worker 
+order by first_name asc
+
+-- query 12--
+
+select * from worker 
+order by first_name asc, department desc
+
+--query 13------
+
+select * from worker where first_name in ('vipul' , 'Satish')
+
+--query 14-------
+
+select * from worker where first_name not in ('vipul', 'satish')
+
+--query 15------
+
+select * from worker where DEPARTMENT = 'Admin'
+
+--query 16---
+
+select * from worker where FIRST_NAME like '%a%'
+
+-- query 17----
+
+select * from worker where first_name like '%a'
+
+-- query 18-----
+
+select * from worker where first_name like '_____h' 
+
+--query 19----
+
+select * from worker where salary between 15000 and 20000
+
+--query 20------
+
+select * from worker where JOINING_DATE = '2016-08-23 02:45:23.000'
+
+-- query 21------
+
+select count(*) from worker where DEPARTMENT = 'HR'
+
+select getdate()
+
+
+
