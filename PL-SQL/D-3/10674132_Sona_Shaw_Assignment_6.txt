@@ -1,0 +1,130 @@
+-----------------------Assignment 6-------------------
+
+create database Nov6
+use Nov6
+
+create table employee(
+id int primary key,
+name varchar(30) not null,
+address varchar(50) not null,
+department varchar(30) check (department in ('HR', 'Accts', 'Sales')),
+Salary int
+)
+
+exec sp_rename 'employee.Salary', 'Basic Salary', 'COLUMN' 
+
+select * from employee
+
+alter table employee add experience int, da float, hra float, pf float, Net_Salary float
+
+
+	alter function da(@base int, @exp int)
+	returns float
+	AS
+	begin
+		declare @da float
+		if(@exp > 10)
+			set @da = 0.09*@base
+		else if(@exp>7 and @exp<=10)
+			set @da = 0.075*@base
+		else if(@exp <= 7)
+			set @da = 0.04*@base
+		return @da		
+	end
+
+	select dbo.da(100,10)
+
+alter function hra(@base int, @exp int)
+returns float
+AS
+begin
+	declare @hra float
+	if(@exp > 10)
+		set @hra = 0.12*@base
+	else if(@exp>7 and @exp<=10)
+		set @hra = 0.1*@base
+	else if(@exp <= 7)
+		set @hra = 0.05*@base
+	return @hra		
+end
+
+select dbo.hra(100,10)
+
+alter function pf(@base int, @exp int)
+returns float
+AS
+begin
+	declare @pf float
+	if(@exp > 10)
+		set @pf = 10000
+	else if(@exp>7 and @exp<=10)
+		set @pf = 7000
+	else if(@exp <= 7)
+		set @pf = 5000
+	return @pf		
+end
+
+select dbo.pf(100,10)
+	
+create function salary(@base int, @da float, @hra float, @pf float)
+returns float
+as
+begin	
+	declare @net float
+	set @net = @base + @da + @hra + @pf
+	return @net
+end
+
+select dbo.salary(2000,20, 200, 5000)
+
+-------------------------Procedure for Insertion into employee table ----------------------
+alter procedure InsertIntoEmployee (@id int, @name varchar(30), @address varchar(50), @dept varchar(30), @base int, @exp int)
+as
+begin
+	if(not exists(select * from employee where id = @id))
+		begin
+			declare @da float
+			declare @hra float
+			declare @pf float
+			declare @netSalary float	
+			set @da = dbo.da(@base, @exp)
+			set @hra = dbo.hra(@base, @exp)
+			set @pf = dbo.pf(@base, @exp)
+			print @da
+			print @hra
+			print @pf
+			set @netSalary = dbo.salary(@base, @da, @hra, @pf)
+			print @netSalary
+			insert into employee values (@id, @name, @address, @dept, @base, @exp, @da, @hra, @pf, @netSalary)
+			
+			return 1
+		end
+	else
+		return 0
+end
+
+
+--------------------Display employee table----------------
+
+create procedure DisplayEmployee 
+as 
+begin
+	select * from employee
+end
+
+
+
+---------------------Inertion into employee---------------------
+declare @res int
+execute @res = InsertIntoEmployee 14, 'Sima Debi Shaw', 'Asansol', 'HR', '2000', 1
+if @res = 1
+	print 'Record Inserted'
+else
+	print 'Record Already Exist'
+
+exec DisplayEmployee   ---- call diplay procedure for employee
+
+
+
+
+
