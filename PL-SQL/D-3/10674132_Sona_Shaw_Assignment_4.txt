@@ -1,0 +1,160 @@
+-------------------- Assignment 4-----------------
+/*
+
+Make following tables:
+ Student  Rn , Name , Address, Marks , DOB
+ Batch  Batch Code, Name, Duration, Description
+ Fees  Fees_Paid, Date_Paid
+ Trainer Trainer ID, Trainer Name, Address,Qualification, Experience, Domain
+ After these tables are there,
+ 1. Display Student name, his address, Batch Code, Batch Name,Faculy Name, Duration of the batch
+ 2. Student name and the fees paid by the student and the   date on which the fees was paid
+ 3. Batch Code, Batch Name and the Trainer details
+
+
+
+*/
+
+---------------create tables-----------------------
+
+create table Trainer(
+trainer_id int primary key,
+trainer_name varchar(30), 
+address varchar(100), 
+qualification varchar(30),
+exerience int,
+domain varchar(30)
+)
+
+create table batch(
+batch_code int primary key,
+batch_name varchar(20),
+duration int,
+description varchar(100)
+)
+
+create table fees(
+fees_paid int,
+paid_date date
+)
+
+create table student(
+rn int primary key,
+st_name varchar(30),
+address varchar(100),
+marks int,
+dob date
+)
+
+--------------------assign foreign keys------------------------
+
+alter table batch 
+add trainer_id int 
+references trainer(trainer_id) 
+
+alter table student 
+add batch_code int
+references batch(batch_code)
+
+alter table fees
+add rn int
+references student(rn)
+
+--------------------Populate tables-------------------------
+
+insert into trainer values
+(1, 'Anamika Sawhney', 'Delhi', 'M.tech', 10, '.net'),
+(2, 'Nabbendu Chakki', 'Kolkata', 'PHD', 20, 'Software Engineering'),
+(3, 'Sankhayan Chowdhury', 'Kolkata', 'PHD', 23, 'DBMS')
+
+insert into batch values
+(1001, '.Net', 10, 'sql, DBMS, Devops', 1),
+(1002, 'JAVA', 9, 'oops,inheritance,encapsulation,polymorphism',2),
+(1003, 'AWS & BI', 10, 'Big Data and cloud technologies', 2),
+(1004, 'CIS', 10, 'Cis technologies', 3),
+(1005, 'Testing', 9, 'Testing technologies', 3)
+
+insert into student values
+(1, 'Sona Shaw', 'Asansol', 92, '1996-12-13', 1001),
+(2, 'Rahul Shaw', 'Asansol', 95, '2003-1-20', 1001),
+(3, 'Sohag Saha', 'Kolkata', 86, '1997-6-14', 1001),
+(4, 'Subhojit Gupta', 'Bardhaman', 91, '1998-1-11', 1002),
+(5, 'Soumitri Mukherjee', 'Sreerampore', 92, '1995-11-17', 1002),
+(6, 'Suheeta Samanta', 'Howrah', 85, '1997-12-3', 1002),
+(7, 'Sumartya Sengupta', 'Kolkata', 90, '1998-5-11', 1003),
+(8, 'Souvik Patra', 'Kolkata', 86, '1997-8-23', 1003),
+(9, 'Sourjya Mukherjee', 'Kolkata', 75, '1997-1-14', 1003),
+(10,'Shankhanil Ghosh', 'Murshidabad', 92, '1997-6-22', 1004),
+(11, 'Chanda Saha', 'Newtown', 69, '1996-11-14', 1004),
+(12, 'Debdeep Mondal', 'Durgapur', 87, '1997-2-19', 1004),
+(13, 'Suprna Saha', 'Kolkata', 89, '1997-9-3', 1005),
+(14, 'Dipak Shaw', 'Asansol', 81, '1996-6-29', 1005),
+(15, 'Ayan Dey', 'Raniganj', 42, '1996-9-11', 1005)
+
+insert into fees values
+(1000,'2020-05-12', 1),
+(2000,'2020-06-12', 1),
+(1000,'2020-05-12', 2),
+(2000,'2020-06-10', 2),
+(1000,'2020-05-12', 3),
+(2000,'2020-06-10', 3),
+(1000,'2020-05-12', 4),
+(2000,'2020-06-10', 4),
+(1000,'2020-05-12', 5),
+(2000,'2020-06-10', 5),
+(1000,'2020-05-12', 6),
+(2000,'2020-06-10', 6),
+(1000,'2020-05-12', 7),
+(2000,'2020-06-10', 7),
+(1000,'2020-05-12', 8),
+(2000,'2020-06-10', 8),
+(1000,'2020-05-12', 9),
+(2000,'2020-06-10', 9),
+(1000,'2020-05-12', 10),
+(2000,'2020-06-10', 10),
+(1000,'2020-05-12', 11),
+(2000,'2020-06-10', 11),
+(1000,'2020-05-12', 12),
+(2000,'2020-06-10', 12),
+(1000,'2020-05-12', 13),
+(2000,'2020-06-10', 13),
+(1000,'2020-05-12', 14),
+(2000,'2020-06-10', 14),
+(1000,'2020-05-12', 15),
+(2000,'2020-06-10', 15)
+
+
+
+
+select * from trainer
+select * from batch
+Select * from student
+select * from fees
+
+
+------------------------------queries-----------------------
+
+--------------query 1----------------------------
+
+select s.st_name, s.address, b.batch_code, b.batch_name, T.trainer_name, b.duration
+from student as s
+left join batch as b
+on s.batch_code = b.batch_code
+left join trainer as t
+on b.trainer_id = t.trainer_id
+
+
+----------------query 2----------------------------
+
+select s.st_name, f.fees_paid, f.paid_date 
+from student as s
+left join fees as f
+on s.rn = f.rn
+
+----------------query 3---------------------------
+
+select b.batch_code, b.batch_name, t.* 
+from batch as b
+left join Trainer as t
+on b.trainer_id = t.trainer_id
+
