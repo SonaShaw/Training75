@@ -1,0 +1,325 @@
+             Assignment No : 5
+Create tables with the following structure
+
+
+
+ Employee Table 
+ 
+ employee id
+ name
+ exp
+ salary
+ departmentid
+ 
+
+
+
+Address Table
+House No
+city
+state
+pincode
+
+
+
+Department Table
+ deptid
+ name
+ manager
+
+
+Understand and create keys on these tables
+
+
+1. Make procedures to insert records in all these tables 
+2. Make procedures to update , delete records based on the ids'
+
+
+User shud get a mesaage whether record is inserted,deleted or updated or not
+
+
+*/
+
+
+create database Nov5
+use nov5
+
+-----------create table----------------
+
+create table department (deptid int primary key, name varchar(30), manager varchar(30))
+
+create table employee (
+employee_id int primary key,
+employee_name varchar(30), 
+experience int,
+salary int,
+deptid int foreign key references department(deptid)
+)
+
+create table address (
+house_no int primary key,
+city varchar(30),
+state varchar(30),
+pincode int,
+employee_id int foreign key references employee(employee_id)
+)
+
+
+----------------question 1--------------------------------
+-----make procedures to insert record in all tables---------
+
+
+-------------procedure for Insertion into employee table----------------
+create procedure InsertIntoEmployee (@id int , @name varchar(30), @exp int, @salary int, @did int)
+AS
+Begin
+	if(not exists(Select * from employee where employee_id=@id))
+		begin
+			insert into employee values(@id, @name, @exp, @salary, @did)
+			return 1
+		end
+    else
+		return 0		
+End
+
+-------------------------Procedur for Insertion into Department table ----------------------
+create procedure InsertIntoDepartment (@id int, @name varchar(30), @manager varchar(30))
+as
+begin
+	if(not exists(select * from department where deptid = @id))
+		begin
+			insert into department values (@id, @name, @manager)
+			return 1
+		end
+	else
+		return 0
+end
+
+-------------------------Procedure for Insertion into Address table ----------------------
+create procedure InsertIntoAddress (@id int, @city varchar(30), @state varchar(30), @pin int, @eid int)
+as
+begin
+	if(not exists(select * from address where house_no = @id))
+		begin
+			insert into address values (@id, @city, @state, @pin, @eid)
+			return 1
+		end
+	else
+		return 0
+end
+
+
+--------------------Display employee table----------------
+
+create procedure DisplayEmployee 
+as 
+begin
+	select * from employee
+end
+
+
+---------------------Display Departmant Table------------
+create procedure DisplayDepartment 
+as 
+begin
+	select * from department
+end
+
+--------------------Display address Table------------
+create procedure DisplayAddress 
+as 
+begin
+	select * from address
+end
+
+
+-----------------------Insertion into Department--------------------
+declare @res int
+exec @res = InsertIntoDepartment 101, 'HR', 'Riddhi Bhatt'
+if @res=1
+ print 'Record inserted'
+else
+ print 'Record already exist'
+
+
+exec DisplayDepartment    -- call display procedure for department
+
+
+---------------------Inertion into employee---------------------
+declare @res int
+execute @res = InsertIntoEmployee 1, 'Sona Shaw', 1, 33500, 101
+if @res = 1
+	print 'Record Inserted'
+else
+	print 'Record Already Exist'
+
+exec DisplayEmployee   ---- call diplay procedure for employee
+
+
+---------------------Inertion into address--------------------
+declare @res int
+execute @res = InsertIntoAddress 301, 'Asansol', 'West Bengal', 713386, 1
+if @res = 1
+	print 'Record Inserted'
+else
+	print 'Record Already Exist'
+
+exec DisplayAddress---- call diplay procedure for address
+
+
+----------------------------Question 2 --------------------------
+------------------------Procedure to update and delete Record--------------------
+-----------------------------------------------------------------------
+
+----------------------Procedure to update employee table----------------
+alter procedure UpdateEmployee(@id int , @name varchar(30))
+AS
+Begin
+if(exists(Select * from employee where employee_id=@id))
+	begin
+		Update employee set employee_name= @name where employee_id=@id
+		return 1
+	end
+else 
+	return 0
+End
+
+
+----------------------Procedure to update department table----------------
+alter procedure UpdateDepartment(@id int, @name varchar(30))
+AS
+Begin
+if(exists(Select * from department where deptid=@id))
+	begin
+		Update department set name= @name where deptid=@id
+		return 1
+	end
+else 
+	return 0
+End
+
+---------------------Procedure to update address table----------------
+alter procedure UpdateAddress(@id int, @city varchar(30))
+AS
+Begin
+if(exists(Select * from address where house_no=@id))
+	begin
+		Update address set city= @city where house_no=@id
+		return 1
+	end
+else 
+	return 0
+End
+
+
+---------------------Procedure to delete from department----------------
+create procedure DeleteDepartment(@id int)
+AS
+Begin
+if(exists(Select * from department where deptid=@id))
+	begin
+		delete from department where deptid=@id
+		return 1
+	end
+else 
+	return 0
+End
+
+---------------------Procedure to delete from Employee----------------
+create procedure DeleteEmployee(@id int)
+AS
+Begin
+if(exists(Select * from employee where employee_id=@id))
+	begin
+		delete from employee where employee_id=@id
+		return 1
+	end
+else 
+	return 0
+End
+
+---------------------Procedure to delete from department----------------
+create procedure DeleteAddress(@id int)
+AS
+Begin
+if(exists(Select * from address where house_no=@id))
+	begin
+		delete from address where house_no=@id
+		return 1
+	end
+else 
+	return 0
+End
+
+
+
+-----------------------update into Department--------------------
+declare @res int
+exec @res = UpdateDepartment 101, 'Tech'
+if @res=1
+ print 'Record Updated'
+else
+ print 'Record doesnot exist'
+
+
+exec DisplayDepartment    -- call display procedure for department
+
+
+---------------------update into employee---------------------
+declare @res int
+execute @res = UpdateEmployee 1, 'Rahul Shaw'
+if @res = 1
+	print 'Record Updated'
+else
+	print 'Record doesnot Exist'
+
+exec DisplayEmployee   ---- call diplay procedure for employee
+
+
+---------------------Update into address--------------------
+declare @res int
+execute @res = UpdateAddress 301, 'Mumbai'
+if @res = 1
+	print 'Record Updated'
+else
+	print 'Record Doesnot Exist'
+
+exec DisplayAddress---- call diplay procedure for address
+
+
+
+
+-----------------------Delete from Department--------------------
+
+declare @res int
+exec @res = DeleteDepartment 101
+if @res=1
+ print 'Record Deleted'
+else
+ print 'Record Deoesnot exist'
+
+
+exec DisplayDepartment    -- call display procedure for department
+
+
+---------------------Inertion into employee---------------------
+declare @res int
+execute @res = InsertIntoEmployee 1, 'Sona Shaw', 1, 33500, 101
+if @res = 1
+	print 'Record Inserted'
+else
+	print 'Record Already Exist'
+
+exec DisplayEmployee   ---- call diplay procedure for employee
+
+
+---------------------Inertion into address--------------------
+declare @res int
+execute @res = InsertIntoAddress 301, 'Asansol', 'West Bengal', 713386, 1
+if @res = 1
+	print 'Record Inserted'
+else
+	print 'Record Already Exist'
+
+exec DisplayAddress---- call diplay procedure for address
+
