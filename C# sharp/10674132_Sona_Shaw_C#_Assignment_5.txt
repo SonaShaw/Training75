@@ -1,0 +1,137 @@
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Assignment5
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Employee employee1 = new Employee("Sona Shaw", "IT", "Riddhi Bhatt");
+            employee1.display();
+
+
+        }
+    }
+
+     class Employee
+    {
+        int empId;
+        string name;
+        string dept;
+        string manager;
+        float basicSalary;
+        int exp;
+        static string companyName;
+        static string companyAddress;
+
+        float da, hra, pf, Salary;
+
+
+
+        public Employee(string name, string dept, string manager)
+        {
+            this.name = name;
+            this.dept = dept;
+            this.manager = manager;
+            Console.WriteLine("Enter employee ID");
+            empId = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Enter basic salary");
+            basicSalary = float.Parse(Console.ReadLine());
+            Console.WriteLine("Enter experience");
+            exp = Convert.ToInt32(Console.ReadLine());
+            netSalary();
+            setCompanyDetails();
+            
+        }
+
+        public Employee(int empId, string name, string dept)
+        {
+            this.empId = empId;
+            this.name = name;
+            this.dept = dept;
+            
+            Console.WriteLine("Enter manager name");
+            manager = Console.ReadLine();
+            Console.WriteLine("Enter basic salary");
+            basicSalary = float.Parse(Console.ReadLine());
+            Console.WriteLine("Enter Experience");
+            exp = int.Parse(Console.ReadLine());
+            netSalary();
+            setCompanyDetails();
+            
+        }
+
+        public Employee(int empId, string name, string dept, string manager, float basicSalary, int exp)
+        {
+            this.empId = empId;
+            this.name = name;
+            this.dept = dept;
+            this.manager = manager;
+            this.basicSalary = basicSalary;
+            this.exp = exp;
+            netSalary();
+            setCompanyDetails();
+            
+        }
+
+        static void setCompanyDetails()
+        {
+            companyName = "LTI";
+            companyAddress = "Mumbai";
+        }
+
+        void netSalary()
+        {
+            
+            if(exp > 10)
+            {
+                da = (float)0.10 * basicSalary;
+                hra = (float)0.085 * basicSalary;
+                pf = (float)6200;
+            }
+            else if(exp > 7 && exp <= 10)
+            {
+                da = (float)0.07 * basicSalary;
+                hra = (float)0.065 * basicSalary;
+                pf = (float)4100;   
+            }
+            else if (exp > 5 && exp <= 7)
+            {
+                da = (float)0.041 * basicSalary;
+                hra = (float)0.038 * basicSalary;
+                pf = (float)1800;
+            }
+            else
+            {
+                da = (float)0.019 * basicSalary;
+                hra = (float)0.020 * basicSalary;
+                pf = (float)1200;
+            }
+            Salary = da + hra + pf + basicSalary;
+        }
+
+        public void display()
+        {
+            Console.WriteLine("Employee Id: {0}", empId);
+            Console.WriteLine("Employee name: {0}", name);
+            Console.WriteLine("Department: {0}", dept);
+            Console.WriteLine("Manager: {0}", manager);
+            Console.WriteLine("Basic Salary: {0}", basicSalary);
+            Console.WriteLine("Experience: {0}", exp);
+            Console.WriteLine("DA: {0}", da);
+            Console.WriteLine("HRA: {0}", hra);
+            Console.WriteLine("PF: {0}", pf);
+            Console.WriteLine("Net Salary: {0}", Salary);
+            Console.WriteLine("Company name: {0}", companyName);
+            Console.WriteLine("Company Address: {0}", companyAddress);
+        }
+
+            
+    }
+}
