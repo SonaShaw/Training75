@@ -1,0 +1,118 @@
+
+
+=====================Question 1==============================
+
+
+namespace Assignment4
+{
+    class Question1
+    {
+        static void Main(string[] args)
+        {
+            string s = Console.ReadLine();
+           
+            string res = "";
+            //List<char> l = new List<char>();
+            for(int i=0; i<s.Length; i++)
+            {
+                if ((i == 0 || i == s.Length - 1) && s[i] == ' ')
+                    continue;
+                if (s[i] == ' ' && s[i + 1] == ' ')
+                    continue;
+                res = res + s[i];
+            }
+            Console.WriteLine(res);
+        }
+    }
+}
+
+
+===========================Question 2=========================
+
+
+namespace Assignment4
+{
+    class Question2
+    {
+        static void Main(string[] args)
+        {
+            
+            Console.WriteLine("Enter size of array");
+            int n = Convert.ToInt32(Console.ReadLine());
+            int[] a = new int[n];
+            for (int i=0; i<a.Length; i++)
+            {
+                Console.WriteLine("enter number {0}", i + 1);
+                int el = Convert.ToInt32(Console.ReadLine());
+                int j;
+                for (j = i - 1; (j >= 0 && a[j] > el); j--)
+                {
+                    a[j + 1] = a[j];
+                }
+                a[j + 1] = el;
+                string res = "";
+                Console.WriteLine("resultant array:--- ");
+                for (int k = 0; k <= i; k++)
+                {
+                    res = res + a[k] + " ";
+                }
+                Console.WriteLine(res);
+
+            }
+        }
+    }
+}
+
+
+
+===========================Question 3=========================
+
+namespace Assignment4
+{
+    class Question3
+    {
+        static void Main()
+        {
+            int[] a = new int[10] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+            Console.WriteLine("Enter item to be deleted");
+            int el = Convert.ToInt32(Console.ReadLine());
+            int index = search(a, el, 0, a.Length - 1);
+            if(index == -1)
+            {
+                Console.WriteLine("Element not present in the array");
+
+            }
+            else
+            {
+                int i;
+                for( i=index; i<a.Length-1; i++)
+                {
+                    a[i] = a[i + 1];
+                }
+                a[i] = Int32.MinValue;
+                Console.WriteLine("Resultant Array-----");
+                StringBuilder res = new StringBuilder();
+              
+                for (int k = 0; k < a.Length; k++)
+                {
+                    if(a[k] != Int32.MinValue)
+                        res.Append(a[k]+" " );
+                }
+                Console.WriteLine(res);
+            }
+
+
+        }
+        static int search(int[] a, int el, int low, int high)
+        {
+            if (high < low)
+                return -1;
+            int mid = (low + high) / 2;
+            if (el == a[mid])
+                return mid;
+            if (el > a[mid])
+                return search(a, el, mid + 1, high);
+            return search(a, el, low, mid-1);
+        } 
+    }
+}
