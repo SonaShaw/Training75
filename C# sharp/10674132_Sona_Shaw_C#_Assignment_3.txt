@@ -1,0 +1,117 @@
+
+
+=======================Question 1===========================
+
+namespace Assignment3
+{
+    class Question1
+    {
+        static void Main(string[] args)
+        {
+            int[] a = { 1, 2, 3, 4, 5, 6, 1, 4, 6, 1, 2, 4, 4, 4, 6, 6 };
+           
+            int cnt = 0;
+            for(int i=0; i<a.Length; i++)
+            {
+                for(int j=i+1; j<a.Length; j++)
+                {
+                    if (a[j] == a[i])
+                    {
+                        cnt++;
+                        break;
+                    }
+                      
+                }
+            }
+            Console.WriteLine(cnt);
+        }
+    }
+}
+
+
+============================Question 2============================
+
+
+namespace Assignment3
+{
+    class Question2
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Enter Marks in physics");
+            int phy = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Enter Marks in chemistry");
+            int chem = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Enter Marks in maths");
+            int math = Convert.ToInt32(Console.ReadLine());
+
+            //string eligible = "";
+
+            if((phy>=55 && chem>=50 && math>=65 && (phy+chem+math)>=180) || ((math+phy)>=140 || (math + chem) >= 140))
+            {
+                Console.WriteLine("Eligible for admission");
+            }
+            else
+            {
+                Console.WriteLine("Not Eligble for admission");
+            }
+
+        }
+    }
+}
+
+
+
+======================Question 3============================
+
+
+namespace Assignment3
+{
+    class Assignment3
+    {
+        static void Main(string[] args)
+        {
+            int id;
+            string name;
+            int unitConsumed;
+            Console.WriteLine("Enter Customer id");
+            id = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Enter Name ");
+            name = Console.ReadLine();
+            Console.WriteLine("Enter unit consumed");
+            unitConsumed = Convert.ToInt32(Console.ReadLine());
+
+            float chargePerUnit;
+            if (unitConsumed < 200)
+                chargePerUnit = (float)1.20;
+            else if (unitConsumed >= 200 && unitConsumed < 400)
+                chargePerUnit = (float)1.50;
+            else if (unitConsumed >= 400 && unitConsumed < 600)
+                chargePerUnit = (float)1.80;
+            else
+                chargePerUnit = (float)2.00;
+
+            float bill = (float)unitConsumed * chargePerUnit;
+            float surcharge = 0;
+            float totalBill;
+
+            if (bill >= 400)
+            {
+                surcharge = bill * (float)0.15;
+            }
+
+            totalBill = bill + surcharge;
+
+
+
+            Console.WriteLine("Candidate IDNO.: {0}", id);
+            Console.WriteLine("Candidate name: "+ name);
+            Console.WriteLine("Unit Consumed: {0}", unitConsumed);
+            Console.WriteLine("Amount charges @Rs. {0} per unit: {1}", chargePerUnit, bill);
+            Console.WriteLine("Surcharge Amount {0}",surcharge);
+            Console.WriteLine("Net Amount Paid By The Customer {0}",totalBill);
+
+
+        }
+    }
+}
