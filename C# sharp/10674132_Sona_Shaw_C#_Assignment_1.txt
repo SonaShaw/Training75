@@ -1,0 +1,173 @@
+================================Question 1====================
+
+ static void Main(string[] args)
+        {
+            Console.WriteLine("Hello World!");
+        }
+
+
+==============================Question 2====================
+
+ static void Main(string[] args)
+        {
+            int a = 3;
+            int b = 4;
+
+            Console.WriteLine(a+b);
+            Console.WriteLine(a-b);
+            Console.WriteLine(a*b);
+            if (b != 0)
+                Console.WriteLine(a / b);
+        }
+
+
+==============================Question 3====================
+
+static void Main(string[] args)
+        {
+            int ch = 3;
+            int a = 4;
+            int b = 3;
+            switch (ch)
+            {
+                case 1:
+                    Console.WriteLine(a+b);
+                    break;
+                case 2:
+                    Console.WriteLine(a-b);
+                    break;
+                case 3:
+                    Console.WriteLine(a*b);
+                    break;
+                case 4:
+                    if(b!=0)
+                        Console.WriteLine(a/b);
+                    break;
+                default:
+                    Console.WriteLine("Not a valid choice");
+                    break;
+
+            }
+        }
+
+=============================Question 4=====================
+
+static void Main(string[] args)
+        {
+            for(int i=0; i<10; i++)
+                Console.WriteLine("Sona Shaw");
+        }
+    }
+
+
+=============================Question 5======================
+
+static void Main(string[] args)
+        {
+            Console.WriteLine("Enter Start Number");
+            int a = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Enter End Number");
+            int b = Convert.ToInt32(Console.ReadLine());
+            if (a % 2 == 0)
+            {
+                for(int i=a; i<=b; i = i + 2)
+                {
+                    Console.WriteLine(i);
+                }
+            }
+            else
+            {
+                for(int i=a+1; i<=b; i = i + 2)
+                {
+                    Console.WriteLine(i);
+                }
+            }
+
+        }
+
+
+------------------------------Question 6----------------------
+
+static void Main(string[] args)
+        {
+            Console.WriteLine("Enter start number");
+            int a = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Enter last number");
+            int b = Convert.ToInt32(Console.ReadLine());
+
+            if (a % 2 == 0)
+            {
+                for(int i=a+1; i<=b; i = i + 2)
+                {
+                    Console.WriteLine(i);
+                }
+            }
+            else
+            {
+                for(int i=a; i<=b; i = i + 2)
+                {
+                    Console.WriteLine(i);
+                }
+            }
+        }
+
+
+--------------------------------Question 7---------------------
+
+static void Main(string[] args)
+        {
+            Console.WriteLine("Enter a number");
+            int n = int.Parse(Console.ReadLine());
+            for(int i=1; i<=10; i++)
+            {
+                Console.Write("{0}  ", n * i);
+            }
+
+        }
+
+
+--------------------------------Question 8-------------------------
+
+class Question8
+    {
+        static void Main(string[] args)
+        {
+            for(int i=100; i>=5; i = i - 3)
+            {
+                Console.WriteLine(i);
+            }
+        }
+    }
+
+
+--------------------------------Question 9----------------------------
+
+class Question9
+    {
+        static void Main(string[] args)
+        {
+            int a = 3, b = 4, c = 100;
+            Console.Write("{0} {1} {2} ",a,b,c);
+            
+        }
+    }
+
+
+----------------------------------Question 10----------------------------
+---
+class Question10
+    {
+        static void Main()
+        {
+            int a = 3, b = 4, c = 100;
+            Console.Write("{0}\n{1}\n{2} ", a, b, c);
+
+        }
+    }
+
+
+
+
+
+
+
