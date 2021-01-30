@@ -1,0 +1,98 @@
+import { Component, OnInit } from '@angular/core';
+ 
+@Component({
+  selector: 'app-fontcomp',
+  templateUrl: './fontcomp.component.html',
+  styleUrls: ['./fontcomp.component.css']
+})
+export class FontcompComponent implements OnInit {
+ 
+  text:string="";
+ 
+  fontSize:number=10;
+  
+  txtClass:string="";
+  
+  
+  setText(data:any)
+  {
+    this.text =  data.target.value;
+  }
+ 
+  setSize(size:string)
+  {
+    if(size=='inc')
+      this.fontSize +=10;
+    if(size=='dec')
+      this.fontSize -=10;
+  } 
+  setColor(event:any)
+  {
+    this.txtClass = event.target.value;
+    // console.log(this.txtClass);
+  }
+ 
+  constructor() { }
+ 
+  ngOnInit(): void {
+  }
+ 
+}
+
+
+
+
+===================HTML File======================
+
+<input type="text" (keyup)='setText($event)'>
+ 
+<br>
+ 
+<br>
+<select (change) ="setColor($event)">
+    <option value="primary"> Primary </option>
+    <option value="danger"> Danger </option>
+    <option value="warning"> Warning </option>
+    <option value="success"> Success </option>
+</select>
+ 
+<p> Font Size : {{fontSize}} px</p>
+ 
+<button (click)='setSize("inc")'> + </button>
+<button (click)='setSize("dec")'> - </button> 
+ 
+<br>
+ 
+<p [style.fontSize.px]= "fontSize" [class]="txtClass"> {{text}}  </p> 
+
+
+=============================CSS File============================
+
+.success {
+    color:green;
+}
+ 
+.primary
+{
+    color: yellow;
+}
+ 
+.danger 
+{
+    color : red;
+}
+ 
+.warning
+{
+    color:gray;
+}
+
+
+
+
+==============
+
+
+
+
+
