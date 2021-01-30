@@ -1,0 +1,51 @@
+1. Add a button. Apply a class on a variable whose value is coming thru a variable. 
+Write a Method to toggle bewteen two classes 
+
+ 
+
+2. Add a button. Display value of variable ,its initial value is 10 when we click on that button, its value should incraese, after 21 it should start decrementing to 10 again
+WHen its incrementing , apply one class and when its decrmenting apply both the classes
+
+ 
+
+
+3. Add a button. Apply a class on a variable whose value is coming thru a variable. 
+But now with every click it should be hidden or shown again
+
+ 
+
+import { identifierModuleUrl } from '@angular/compiler';
+import { Component, OnInit } from '@angular/core';
+
+ 
+
+@Component({
+  selector: 'app-testcomp',
+  template: `<div> `</div>
+   styles: [`
+  .like-button {
+  font-size: 1rem;
+  padding: 5px 10px;
+  color: #585858;
+  }
+  
+   .liked{
+  font-weight: bold;
+  color: #1565c0;
+  }
+  `]
+})
+export class TestcompComponent implements OnInit {
+
+ 
+
+constructor() { }
+
+ 
+
+  ngOnInit(): void {
+  }
+
+ 
+
+}
